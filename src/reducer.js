@@ -4,6 +4,8 @@ import {
   GET_TOTALS,
   TOGGLE_AMOUNT,
   FETCH_USERS,
+  LOADING_FALSE,
+  LOADING_TRUE,
 } from "./actions";
 
 const initialStore = {
@@ -56,8 +58,15 @@ const reducer = (state = initialStore, action) => {
       }),
     };
   }
+
   if (action.type === FETCH_USERS) {
-    return { ...state, loading: false, cart: action.payload.cart };
+    return { ...state, cart: action.payload.cart };
+  }
+  if (action.type === LOADING_FALSE) {
+    return { ...state, loading: false };
+  }
+  if (action.type === LOADING_TRUE) {
+    return { ...state, loading: true };
   }
   return state;
 };

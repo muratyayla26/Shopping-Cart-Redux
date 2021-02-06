@@ -15,7 +15,7 @@ const CartContainer = ({
     getTotals();
   }, [cart]);
   useEffect(() => {
-    fetchUsers();
+    fetchUsers("first");
   }, []);
 
   if (loading) {
@@ -35,6 +35,11 @@ const CartContainer = ({
           <h2>your bag</h2>
           <h4 className="empty-cart">is currently empty</h4>
         </header>
+        <footer>
+          <button className="btn clear-btn" onClick={() => fetchUsers("again")}>
+            Load again
+          </button>
+        </footer>
       </section>
     );
   }
@@ -77,7 +82,7 @@ const mapDispatchToProPS = (dispatch) => {
   return {
     clearCart: () => dispatch({ type: CLEAR_CART }),
     getTotals: () => dispatch({ type: GET_TOTALS }),
-    fetchUsers: () => dispatch(fetchUsersFunc()),
+    fetchUsers: (state) => dispatch(fetchUsersFunc(state)),
   };
 };
 
