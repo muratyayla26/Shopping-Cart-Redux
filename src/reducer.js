@@ -1,8 +1,13 @@
-import cartItems from "./cart-items"; //static items
-import { CLEAR_CART, REMOVE, GET_TOTALS, TOGGLE_AMOUNT } from "./actions";
+import {
+  CLEAR_CART,
+  REMOVE,
+  GET_TOTALS,
+  TOGGLE_AMOUNT,
+  FETCH_USERS,
+} from "./actions";
 
 const initialStore = {
-  cart: cartItems,
+  cart: [],
   total: 0,
   amount: 0,
 };
@@ -49,6 +54,9 @@ const reducer = (state = initialStore, action) => {
         return item;
       }),
     };
+  }
+  if (action.type === FETCH_USERS) {
+    return { ...state, cart: action.payload.cart };
   }
   return state;
 };

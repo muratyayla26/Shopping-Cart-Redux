@@ -1,12 +1,21 @@
 import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import { connect } from "react-redux";
-import { CLEAR_CART, GET_TOTALS } from "../actions";
+import { CLEAR_CART, GET_TOTALS, fetchUsersFunc } from "../actions";
 
-const CartContainer = ({ cart = [], total, dispatch }) => {
+const CartContainer = ({
+  cart = [],
+  total,
+  getTotals,
+  clearCart,
+  fetchUsers,
+}) => {
   useEffect(() => {
-    dispatch({ type: GET_TOTALS });
+    getTotals();
   }, [cart]);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   if (cart.length === 0) {
     return (
@@ -33,13 +42,13 @@ const CartContainer = ({ cart = [], total, dispatch }) => {
         <hr />
         <div className="cart-total">
           <h4>
-            total <span>${total}</span>
+            total <span>₺{total}</span>
           </h4>
         </div>
         <button
           className="btn clear-btn"
           onClick={() => {
-            dispatch({ type: CLEAR_CART });
+            clearCart();
           }}
         >
           clear cart
@@ -53,4 +62,12 @@ const mapStateToProps = (state) => {
   return { cart: state.cart, total: state.total };
 };
 
-export default connect(mapStateToProps)(CartContainer);
+const mapDispatchToProPS = (dispatch) => {
+  return {
+    clearCart: () => dispatch({ type: CLEAR_CART }),
+    getTotals: () => dispatch({ type: GET_TOTALS }),
+    fetchUsers: () => dispatch(fetchUsersFunc()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProPS)(CartContainer);

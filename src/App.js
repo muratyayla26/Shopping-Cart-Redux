@@ -1,11 +1,11 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import CartContainer from "./components/CartContainer";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
-
-const store = createStore(reducer);
+import thunk from "redux-thunk";
+const store = createStore(reducer, applyMiddleware(thunk));
 
 function App() {
   return (
