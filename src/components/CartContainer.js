@@ -9,6 +9,7 @@ const CartContainer = ({
   getTotals,
   clearCart,
   fetchUsers,
+  loading,
 }) => {
   useEffect(() => {
     getTotals();
@@ -16,6 +17,16 @@ const CartContainer = ({
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  if (loading) {
+    return (
+      <section className="cart">
+        <header>
+          <h2>Loading...</h2>
+        </header>
+      </section>
+    );
+  }
 
   if (cart.length === 0) {
     return (
@@ -59,7 +70,7 @@ const CartContainer = ({
 };
 
 const mapStateToProps = (state) => {
-  return { cart: state.cart, total: state.total };
+  return { cart: state.cart, total: state.total, loading: state.loading };
 };
 
 const mapDispatchToProPS = (dispatch) => {

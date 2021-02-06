@@ -10,6 +10,7 @@ const initialStore = {
   cart: [],
   total: 0,
   amount: 0,
+  loading: true,
 };
 
 const reducer = (state = initialStore, action) => {
@@ -56,7 +57,7 @@ const reducer = (state = initialStore, action) => {
     };
   }
   if (action.type === FETCH_USERS) {
-    return { ...state, cart: action.payload.cart };
+    return { ...state, loading: false, cart: action.payload.cart };
   }
   return state;
 };
