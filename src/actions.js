@@ -13,8 +13,8 @@ export const removeItem = (id) => {
   return { type: REMOVE, payload: { id } };
 };
 
-export const fetchUsers = (cart, state) => {
-  return { type: FETCH_USERS, payload: { cart: cart, state: state } };
+export const fetchUsers = (cart) => {
+  return { type: FETCH_USERS, payload: { cart: cart } };
 };
 
 /*async fetch from mock api */
@@ -22,13 +22,13 @@ export const fetchUsersFunc = (state) => {
   return (dispatch) => {
     if (state === "first") {
       axios(url).then((res) => {
-        dispatch(fetchUsers(res.data, state));
+        dispatch(fetchUsers(res.data));
         dispatch({ type: LOADING_FALSE });
       });
     } else if (state === "again") {
       dispatch({ type: LOADING_TRUE });
       axios(url).then((res) => {
-        dispatch(fetchUsers(res.data, state));
+        dispatch(fetchUsers(res.data));
         dispatch({ type: LOADING_FALSE });
       });
     }
